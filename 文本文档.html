@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>立冬礼物</title>
+    <style>
+        /* 页面样式：居中+雪花背景 */
+        body { margin: 0; padding: 0; height: 100vh; display: flex; justify-content: center; align-items: center; background: #1a1a2e; overflow: hidden; }
+        .gift-box { text-align: center; padding: 30px; background: #fff; border-radius: 15px; box-shadow: 0 0 20px rgba(0,0,0,0.3); }
+        .gift-btn { padding: 12px 24px; margin-top: 20px; font-size: 18px; background: #e94560; color: white; border: none; border-radius: 8px; cursor: pointer; }
+        /* 雪花动画 */
+        .snowflake { position: absolute; top: -10px; color: white; animation: fall linear infinite; }
+        @keyframes fall { to { transform: translateY(105vh); } }
+        /* 礼物弹窗样式（修复后新增） */
+        .surprise { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); justify-content: center; align-items: center; z-index: 10; }
+        .surprise-content { background: #fff; padding: 40px; border-radius: 15px; text-align: center; }
+        .close-btn { padding: 10px 20px; margin-top: 20px; font-size: 16px; background: #22d1ee; color: white; border: none; border-radius: 8px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <!-- 礼物弹窗 -->
+    <div class="gift-box">
+        <h1>❄️ 立冬礼物 ❄️</h1>
+        <p>您有一份立冬礼物，确定要打开吗？</p >
+        <button class="gift-btn" onclick="openGift()">打开礼物</button>
+    </div>
+
+    <!-- 打开后的惊喜弹窗（修复核心） -->
+    <div class="surprise" id="surpriseBox">
+        <div class="surprise-content">
+            <h2>🎁 惊喜来啦！</h2>
+            <p>愿你三冬暖，春不寒</p >
+            <p>天黑有灯，下雨有伞</p >
+            <p>立冬快乐，平安顺遂～</p >
+            <button class="close-btn" onclick="closeGift()">关闭</button>
+        </div>
+    </div>
+
+    <!-- 雪花特效+礼物功能脚本（修复后） -->
+    <script>
+        // 生成雪花
+        function createSnowflake() {
+            const snow = document.createElement('div');
+            snow.className = 'snowflake';
+            snow.textContent = '❄️';
+            snow.style.left = Math.random() * 100 + 'vw';
+            snow.style.animationDuration = Math.random() * 3 + 2 + 's';
+            snow.style.fontSize = Math.random() * 15 + 10 + 'px';
+            document.body.appendChild(snow);
+            setTimeout(() => snow.remove(), 5000);
+        }
+        setInterval(createSnowflake, 200);
+
+        // 打开礼物（修复核心：显示惊喜弹窗）
+        function openGift() {
+            document.getElementById('surpriseBox').style.display = 'flex';
+        }
+
+        // 关闭礼物弹窗
+        function closeGift() {
+            document.getElementById('surpriseBox').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
